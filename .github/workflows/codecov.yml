@@ -1,0 +1,8 @@
+name: Generate and deploy Codecov results
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+    
+jobs:
+  codecov-grcov:
+    uses: lurk-lab/ci-workflows/.github/workflows/codecov.yml@main
