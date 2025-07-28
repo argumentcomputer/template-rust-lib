@@ -1,5 +1,5 @@
 [toolchain]
 # The default profile includes rustc, rust-std, cargo, rust-docs, rustfmt and clippy.
 profile = "default"
-channel = "1.76"
-targets = [ "wasm32-unknown-unknown" ]
+# EDIT AS NEEDED
+channel = "1.88"
