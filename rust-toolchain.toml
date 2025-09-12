@@ -1,5 +1,4 @@
 [toolchain]
 # The default profile includes rustc, rust-std, cargo, rust-docs, rustfmt and clippy.
 profile = "default"
-# EDIT AS NEEDED
 channel = "1.88"

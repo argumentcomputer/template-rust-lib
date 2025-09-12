@@ -8,10 +8,10 @@ Base template for a Rust library with CI, config files, and branch protection
 ```
 # Replace all occurrences with the desired library name
 $ rg -i template --glob '!deny.toml'
-# Update Rust toolchain if desired
-$ rg "EDIT AS NEEDED"
+# Update Rust toolchain if desired in `rust-toolchain.toml` and `Cargo.toml`
 # Then rewrite this `README`
 ```
+- Optional: Enable the Warpbuild and Garnix GitHub apps for CI and Nix caching
 - Create a branch protection rule for `main` and enable the following as needed:
   - Require a pull request before merging
     - Require 1 approval

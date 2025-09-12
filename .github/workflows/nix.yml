@@ -1,0 +1,40 @@
+name: Nix CI
+
+# If using Garnix, edit to run after Garnix checks using `on: check_suite`
+# https://garnix.io/docs/gh-actions
+on:
+  push:
+    branches: [main, nix-flake]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # Runs Rust tests via Nix
+  nix-test:
+    name: Nix Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check --print-build-logs
+      - run: nix build --print-build-logs --rebuild --accept-flake-config
+
+  # Tests Nix devShell support on Ubuntu
+  nix-devshell:
+    name: Nix devShell Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      # Builds and runs tests using Lake as a Nix package
+      - run: nix develop --accept-flake-config --command bash -c "cargo build && cargo nextest run"
