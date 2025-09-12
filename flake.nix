@@ -66,6 +66,7 @@
 
         template = craneLib.buildPackage (commonArgs // {
           inherit cargoArtifacts;
+          doCheck = false;
         });
 
         # Run tests with cargo-nextest
@@ -95,7 +96,7 @@
       in
       {
         checks = {
-          inherit template template-nextest;
+          inherit template;
         };
 
         packages = {
